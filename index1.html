@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>红包商城管理后台</title>
+	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="./css/main.css">
+	<link rel="stylesheet" href="./css/signin.css">
+</head>
+<body>
+<div  id="wrapper">
+
+	<!-- <div ng-if="currentUser" ng-include=" 'views/common/header.html' "></div> -->
+	<!-- <pro-list v-if="!mySnatchList.length" :pro-data="proListData" :num-per-row="2"></pro-list> -->
+	<side-bar></side-bar>
+	<web-header></web-header>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div ng-if="currentUser" ng-include=" 'views/common/sidebar.html' "></div>
+			<div class="main-container" ng-view>
+			</div>
+		</div>
+	</div>
+
+	<div ng-show="notification" class="alert alert-{{notiType}} alert-dismissable" role="alert" style="position:fixed; top: 0;width: 100%;z-index: 1060;">
+	  <div class="center-block" style="text-align:center; color: #fff;">{{notification}}</div>
+	</div>
+
+</div>
+
+<script src="node_modules/vue/dist/vue.js"></script>
+<script src="static/build.js"></script>
+
+</body>
+</html>
