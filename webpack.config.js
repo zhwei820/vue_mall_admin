@@ -2,7 +2,7 @@ var webpack = require('webpack')
 var path = require('path')
 
 module.exports = {
-  entry: './docs/index.js',
+  entry: './mall/index.js',
   output: {
     path: './static',
     publicPath: '/static/',
