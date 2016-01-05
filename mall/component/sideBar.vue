@@ -9,11 +9,10 @@
             <li v-if="!currentUser.role"><a class="manage-icon" v-link="{ path: 'home' }"><i class="glyphicon glyphicon-list"></i>管理</a></li>
 
             <li class="treeview" v-if="currentUser.role != 2">
-
               <a href="#"><i class="fa fa-link"></i> <i class="glyphicon glyphicon-tasks"></i> <span>Banner</span> </a>
               <ul class="treeview-menu">
-                <li><a href="#" v-link="{ path: 'home' }"><i class="glyphicon glyphicon-list"></i>创建banner</a></li>
-                <li><a href="#" v-link="{ path: 'home' }"><i class="glyphicon glyphicon-list"></i>管理banner</a></li>
+                <li><a href="#" v-link="{ path: 'bannerCreate' }"><i class="glyphicon glyphicon-list"></i>创建banner</a></li>
+                <li><a href="#" v-link="{ path: 'bannerManage' }"><i class="glyphicon glyphicon-list"></i>管理banner</a></li>
               </ul>
             </li>
           </ul>

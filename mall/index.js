@@ -17,8 +17,11 @@ var App = Vue.extend(require('./app.vue'))
 var router = new VueRouter()
 
 router.map({
-    '/banner' : {
-        component : require('./component/banner.vue'),
+    '/bannerCreate' : {
+        component : require('./component/bannerCreate.vue'),
+    },
+    '/bannerManage' : {
+        component : require('./component/bannerManage.vue'),
     },
     '/bar' : {
         component: require('./component/banner.vue'),

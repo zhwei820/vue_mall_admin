@@ -5,7 +5,21 @@
 
         <side-bar v-if="currentUser.username"></side-bar>
         <div class="content-wrapper"  v-if="currentUser.username">
-            <router-view></router-view>
+          <section class="content-header">
+              <h1>
+                Banner
+                <small>new</small>
+              </h1>
+              <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">banner</a></li>
+                <li class="active">new</li>
+              </ol>
+            </section>
+            <section class="content">
+              <router-view></router-view>
+            </section>
+
         </div>
 
         <index v-else="currentUser.username" :current-user='currentUser'></index>
