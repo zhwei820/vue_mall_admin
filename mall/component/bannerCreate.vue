@@ -82,7 +82,10 @@
 			<!-- 时间段 -->
 			<div class="form-group">
 				<label class="control-label col-md-2"  for="">上下架时间:</label>
-				<date-time-range></date-time-range>
+				<div class="col-md-10">
+					<date-time-range></date-time-range>
+				</div>
+
 			</div>
 			<!-- 排序 -->
 			<div class="form-group">
