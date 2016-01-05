@@ -36,3 +36,5 @@ window.wsCache = wsCache
 window.router = router
 
 router.start(App, '#app')
+
+// global function
