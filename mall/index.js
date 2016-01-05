@@ -24,7 +24,7 @@ router.map({
         component : require('./component/bannerManage.vue'),
     },
     '/bar' : {
-        component: require('./component/banner.vue'),
+        component: require('./component/bannerManage.vue'),
     },
     '/login' : {
         component: require('./component/index.vue'),

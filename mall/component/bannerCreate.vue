@@ -82,7 +82,7 @@
 			<!-- 时间段 -->
 			<div class="form-group">
 				<label class="control-label col-md-2"  for="">上下架时间:</label>
-				<!-- <date-time-range></date-time-range> -->
+				<date-time-range></date-time-range>
 			</div>
 			<!-- 排序 -->
 			<div class="form-group">
@@ -129,7 +129,7 @@ export default {
 		  banner_id : Number
 	  },
 	  components: {
-		  // dateTimeRange : require("./parts/dateTimeRange.vue"),
+		  	dateTimeRange : require("./parts/dateTimeRange.vue"),
 			slider : require("./parts/slider.vue")
 
 	  },
