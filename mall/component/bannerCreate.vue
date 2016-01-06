@@ -65,17 +65,8 @@
 			<!-- 上传图片 -->
 			<div class="form-group">
 				<label class="control-label col-md-2"  for="">上传图片:</label>
-				<div class="photo-container photo-container-single">
-		            <div ng-show="!pic_url" onclick="uploadBanner.click()" class="photo-upload"></div>
-		            <div ng-show="pic_url" class="photo_pos">
-		                <img src="{{pic_url}}" alt="" v-if="pic_url">
-		                <i ng-click="removePhoto()" data-original-title="删除已传图片">x</i>
-		            </div>
-		        </div>
-
-		        <input class="hide" id="uploadBanner" onchange="angular.element(this).scope().pictureUpload(this, 720, 310)" name="uploadBanner" type="file" accept="image/jpg,image/png,image/jpeg">
-
-				<blockquote class="bg-info col-md-10 col-md-offset-2">
+				<picture-upload></picture-upload>
+		        <blockquote class="bg-info col-sm-offset-2">
 		            <p>图片尺寸: 720*310, 格式为jpg、png、jpeg</p>
 		        </blockquote>
 
@@ -111,7 +102,6 @@
 
 <script>
 
-import indexInit from './index'
 
 export default {
 	data() {
@@ -128,30 +118,32 @@ export default {
 			    start_time: '', //上架开始日期,
 			    end_time: '', //上架结束时间
 			    seq: 0, //图片排序
-			    description: '' //banner说明
-			}
-		},
-	props: {
-	  banner_id : Number
-	},
-	components: {
-	  	dateTimeRange : require("./parts/dateTimeRange.vue"),
-		slider : require("./parts/slider.vue")
-	},
+			    description: '', //banner说明
+					pic_url : ''
+				}
+	  },
+	  props: {
+		  	banner_id : Number
+	  },
+	  components: {
+		  	dateTimeRange : require("./parts/dateTimeRange.vue"),
+				slider : require("./parts/slider.vue"),
+				pictureUpload : require("./parts/pictureUpload.vue")
+	  },
 
-	methods: {
-	    bannerCreate : function() {
-	        var paramData = {};
-				paramData.banner_id = this.banner_id || '',
-				paramData.name = this.name,
-				paramData.os_type = this.os_type,
-				paramData.pic_url = this.pic_url,
-				paramData.open_type = this.open_type,
-				paramData.click_url = this.click_url,
-				paramData.start_time = this.start_time,
-				paramData.end_time = this.end_time,
-				paramData.seq = this.seq,
-				paramData.description = this.description,
+    methods: {
+        bannerCreate : function() {
+            var paramData = {};
+						paramData.banner_id = this.banner_id || '',
+						paramData.name = this.name,
+						paramData.os_type = this.os_type,
+						paramData.pic_url = this.pic_url,
+						paramData.open_type = this.open_type,
+						paramData.click_url = this.click_url,
+						paramData.start_time = this.start_time,
+						paramData.end_time = this.end_time,
+						paramData.seq = this.seq,
+						paramData.description = this.description,
 
 		        this.$http.options.emulateJSON = true
 		        this.$http.post('/banner/add/', paramData, function(data, status, request) {
@@ -159,33 +151,30 @@ export default {
 			          route.go('/banner');
 		            } else {
 		                console.log('登录失效');
+						route.go('/login');
+                }
+	            }, {
+	              emulateJSON: true
+	            }).error(function(data, status, request) {
+								console.log('参数错误');
+	          })
+        },
+				bannerGet : function(){
+					url: '/banner/get/?banner_id=' + id
+					this.$http.get(url, function(data, status, request) {
+						if (!+data.status) {
+							console.log('登录失效');
 							route.go('/login');
-		                }
-		            }, {
-		              emulateJSON: true
-		            }).error(function(data, status, request) {
-						console.log('参数错误');
-	            })
-
-	    },
-		bannerGet : function(){
-			url: '/banner/get/?banner_id=' + this.banner_id
-			this.$http.get(url, function(data, status, request) {
-				if (!+data.status) {
-					console.log('登录失效');
-					route.go('/login');
-	  		      } else {
-	  		        return data.data;
-	  		      }
-		      }).error(function(data, status, request) {
-		        console.log('请求失败, 请重试')
-		      })
-
-		},
-
-	},
-	ready(){
-		this.$dispatch('bread_crumb', {title: 'Banner', subtitle: '新建'})
-	}
+			  		      } else {
+			  		        return data.data;
+			  		      }
+				      }).error(function(data, status, request) {
+				        console.log('请求失败, 请重试')
+				      })
+	    	},
+				// bannerUpload: function(){
+				// 	uploadPicture(this, 720, 310);
+				// }
+			}
 }
 </script>
