@@ -2,18 +2,18 @@
 
      <div class="wrapper">
         <web-header v-if="currentUser.username"></web-header>
-
         <side-bar v-if="currentUser.username"></side-bar>
+
         <div class="content-wrapper"  v-if="currentUser.username">
           <section class="content-header">
               <h1>
-                Banner
-                <small>new</small>
+                {{bread_crumb_data.title}}
+                <small>{{bread_crumb_data.subtitle}}</small>
               </h1>
               <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li><a href="#">banner</a></li>
-                <li class="active">new</li>
+                <li><a href="#"><i class="glyphicon glyphicon-dashboard"></i> 首页</a></li>
+                <li>{{bread_crumb_data.title}}</li>
+                <li class="active">{{bread_crumb_data.subtitle}}</li>
               </ol>
             </section>
             <section class="content">
@@ -38,6 +38,7 @@ var index = require('./component/index.vue');
     data () {
         return {
             currentUser : wsCache.get('currentUser') ? wsCache.get('currentUser') : {username : ''},
+            bread_crumb_data : {title: 'Banner', subtitle: '新建'},
         }
     },
 
@@ -48,6 +49,16 @@ var index = require('./component/index.vue');
     },
     ready(){
         console.log(this.currentUser)
-    }
+    },
+    methods: {
+        update_bread_crumbs : function(bread_crumb_data){
+            this.bread_crumb_data = bread_crumb_data;
+        }
+    },
+    events: {
+      'bread_crumb': function(bread_crumb_data) {
+        this.update_bread_crumbs(bread_crumb_data);
+      }
+    },
   }
 </script>
