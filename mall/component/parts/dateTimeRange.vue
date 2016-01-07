@@ -6,28 +6,30 @@
       <div class="input-group-addon">
         <i class="glyphicon glyphicon-time"></i>
       </div>
-      <input type="text" class="form-control pull-right" id="reservationtime">
+      <input type="text" class="form-control pull-right" id="reservationtime" value="{{range}}">
     </div>
 
 </template>
 
 <script>
 
-      $(document).ready(function(){
-          $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'YYYY-MM-DD hh:mm:ss'});
-
-      })
+    $(document).ready(function(){
+      $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'YYYY-MM-DD hh:mm:ss'});
+    })
 
     export default {
         data() {
           return {
-
           }
         },
         props : {
-            lablel : String
+            // lablel : String,
+            range: String,
         },
         components: {
+        },
+        ready(){
+            console.log(this.range)
         }
     }
 </script>

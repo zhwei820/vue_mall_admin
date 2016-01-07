@@ -11,13 +11,12 @@
               <span class="caret"></span>
           </div>
           <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-            <li><a href="#">退出</a></li>
+            <li><a href="#" @click='logout'>退出</a></li>
             <li><a href="#">修改密码</a></li>
           </ul>
         </div>
     </nav>
   </header>
-
 </template>
 
 <script>
@@ -25,8 +24,12 @@ export default {
     data () {
         return {
             currentUser : wsCache.get('currentUser') ? wsCache.get('currentUser') : {username : ''},
-
         }
     },
+    methods: {
+        logout: function(){
+            this.$dispatch('logout');
+        },
+    }
 }
 </script>

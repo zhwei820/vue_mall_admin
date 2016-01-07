@@ -17,6 +17,9 @@ var App = Vue.extend(require('./app.vue'))
 var router = new VueRouter()
 
 router.map({
+    '/dashBoard' : {
+        component : require('./component/dashBoard.vue'),
+    },
     '/bannerCreate' : {
         component : require('./component/bannerCreate.vue'),
     },
@@ -28,7 +31,10 @@ router.map({
     },
     '/login' : {
         component: require('./component/index.vue'),
-    }
+    },
+    '*' : {
+        component : require('./component/dashBoard.vue'),
+    },
 })
 
 var wsCache = new WebStorageCache();
@@ -36,3 +42,7 @@ window.wsCache = wsCache
 window.router = router
 
 router.start(App, '#app')
+
+window.sleep = function(d){
+  for(var t = Date.now();Date.now() - t <= d;);
+}

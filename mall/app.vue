@@ -41,14 +41,15 @@ var index = require('./component/index.vue');
             bread_crumb_data : {title: 'Banner', subtitle: '新建'},
         }
     },
-
     components: {
         webHeader: webHeader,
         sideBar: sideBar,
         index: index
     },
     ready(){
-        console.log(this.currentUser)
+        if(!this.currentUser.username){
+            router.go("/login");
+        }
     },
     methods: {
         update_bread_crumbs : function(bread_crumb_data){
@@ -56,9 +57,13 @@ var index = require('./component/index.vue');
         }
     },
     events: {
-      'bread_crumb': function(bread_crumb_data) {
-        this.update_bread_crumbs(bread_crumb_data);
-      }
+        'bread_crumb': function(bread_crumb_data) {
+            this.update_bread_crumbs(bread_crumb_data);
+            },
+            logout: function(){
+                this.currentUser = {username : ''};
+                wsCache.delete('currentUser');
+            }
     },
   }
 </script>

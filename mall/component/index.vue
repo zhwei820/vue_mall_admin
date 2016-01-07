@@ -62,27 +62,27 @@ export default {
                   //登录初始化
                   this.currentUser = data.data;
                   if(this.currentUser.role == 2) {
-                      router.go({path : '/banner'})
+                      router.go({path : '/bannerCreate'})
                   } else {
-                      router.go({path : '/banner'});
+                      router.go({path : '/bannerCreate'});
                   }
                   wsCache.set('currentUser', data.data, {exp : 6000});
+                  location.reload();
                   console.log(data.data);
 
               } else {
                   console.log('请验证所填信息是否正确');
                 //   this.updateVerify();
               }
-
           }, {
             emulateJSON: true
           }).error(function(data, status, request) {
             //   this.updateVerify();
         })
-
       },
   },
   ready: function(){
+      this.$dispatch('logout');
   }
 
 }
