@@ -6,9 +6,8 @@
       <div class="input-group-addon">
         <i class="glyphicon glyphicon-time"></i>
       </div>
-      <input type="text" class="form-control pull-right" id="reservationtime" value="{{range}}">
+      <input type="text" v-model="range" id="reservationtime" class="form-control pull-right" />
     </div>
-
 </template>
 
 <script>
@@ -20,16 +19,19 @@
     export default {
         data() {
           return {
+            // range_data: 'dd',
           }
         },
         props : {
-            // lablel : String,
             range: String,
         },
         components: {
         },
+        methods: {
+
+        },
         ready(){
-            console.log(this.range)
+            // console.log(this.range);
         }
     }
 </script>

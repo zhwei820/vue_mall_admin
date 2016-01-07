@@ -65,20 +65,21 @@
 			<!-- 上传图片 -->
 			<div class="form-group">
 				<label class="control-label col-md-2"  for="">上传图片:</label>
-				<picture-upload :width="720" :height="310"></picture-upload>
-		        <blockquote class="bg-info col-sm-offset-2">
-		            <p>图片尺寸: 720*310, 格式为jpg、png、jpeg</p>
-		        </blockquote>
+				<picture-upload></picture-upload>
+        <blockquote class="bg-info col-sm-offset-2">
+            <p>图片尺寸: 720*310, 格式为jpg、png、jpeg</p>
+        </blockquote>
 
 			</div>
-
+			<!-- 时间段 -->
 			<div class="form-group">
 				<label class="control-label col-md-2"  for="">上下架时间:</label>
 				<div class="col-md-10">
-					<date-time-range></date-time-range>
+					<date-time-range :range="range"></date-time-range>
 				</div>
-			</div>
 
+			</div>
+			<!-- 排序 -->
 			<div class="form-group">
 				<label class="control-label col-md-2"  for="">banner排序:</label>
 				 <div class="col-md-10">
@@ -101,79 +102,84 @@
 </template>
 
 <script>
-
-
 export default {
-	data() {
+  data() {
 		if(this.banner_id){
 		  return bannerGet();
 		}
+
 		return {  // 新建banner, 初始化参数
-			name: '', //banner名称
-		    os_type: 0, //系统平台
-		    pic_url: '',
-		    open_type: 1, //打开方式
-		    click_url: '', //跳转链接
-		    range: '', //上架开始结束日期,
-		    seq: 0, //图片排序
-		    description: '', //banner说明
-			pic_url : ''
-		}
-	},
-	props: {
-	  	banner_id : Number
-	},
-	components: {
-	  	dateTimeRange : require("./parts/dateTimeRange.vue"),
-		slider : require("./parts/slider.vue"),
-		pictureUpload : require("./parts/pictureUpload.vue")
-	},
-	methods: {
-	    bannerCreate : function() {
-			console.log(this.$children[1].range);
-			return
+					name: '', //banner名称
+			    os_type: 0, //系统平台
+			    pic_url: '',
+			    open_type: 0, //打开方式
+			    click_url: '', //跳转链接
+			    range: new Date().dateFormat("yyyy-MM-dd hh:mm:ss") + ' - ' + new Date().dateFormat("yyyy-MM-dd hh:mm:ss"), //上架开始结束日期,
+			    seq: 0, //图片排序
+			    description: '', //banner说明
+					pic_url : ''
+				}
+	  },
+	  props: {
+		  	banner_id : Number
+	  },
+	  components: {
+		  	dateTimeRange : require("./parts/dateTimeRange.vue"),
+				slider : require("./parts/slider.vue"),
+				pictureUpload : require("./parts/pictureUpload.vue")
+	  },
 
-	        var paramData = {};
-			paramData.banner_id = this.banner_id || '',
-			paramData.name = this.name,
-			paramData.os_type = this.os_type,
-			paramData.pic_url = this.pic_url,
-			paramData.open_type = this.open_type,
-			paramData.click_url = this.click_url,
-			paramData.end_time = this.end_time,
-			paramData.seq = this.seq,
-			paramData.description = this.description,
+		methods: {
+			bannerCreate : function() {
+						console.log(this.$children[1]['range']);
+						console.log('d');
 
-	        this.$http.options.emulateJSON = true
-	        this.$http.post('/banner/add/', paramData, function(data, status, request) {
-	            if (data.status) {
-		          route.go('/bannerManage');
-	            } else {
-	                console.log('登录失效');
-					route.go('/login');
-	        }
-	        }, {
-	          emulateJSON: true
-	        }).error(function(data, status, request) {
-							console.log('参数错误');
-	      })
-	    },
-		bannerGet : function(){
-			url: '/banner/get/?banner_id=' + id
-			this.$http.get(url, function(data, status, request) {
-				if (!+data.status) {
-					console.log('登录失效');
-					route.go('/login');
-			      } else {
-			        return data.data;
-			      }
-			}).error(function(data, status, request) {
-				console.log('请求失败, 请重试')
-			})
-		  },
-	},
-	ready(){
-		this.$dispatch('bread_crumb', {title: 'Banner', subtitle: '新建'})
-	}
+						return;
+            var paramData = {};
+						paramData.banner_id = this.banner_id || '',
+						paramData.name = this.name,
+						paramData.os_type = this.os_type,
+						paramData.pic_url = this.pic_url,
+						paramData.open_type = this.open_type,
+						paramData.click_url = this.click_url,
+						paramData.start_time = this.start_time,
+						paramData.end_time = this.end_time,
+						paramData.seq = this.seq,
+						paramData.description = this.description,
+
+		        this.$http.options.emulateJSON = true
+		        this.$http.post('/banner/add/', paramData, function(data, status, request) {
+		            if (data.status) {
+			          route.go('/banner');
+		            } else {
+		                console.log('登录失效');
+										route.go('/login');
+                }
+	            }, {
+	              emulateJSON: true
+	            }).error(function(data, status, request) {
+								console.log('参数错误');
+	          })
+        },
+				bannerGet : function(){
+					url: '/banner/get/?banner_id=' + id
+					this.$http.get(url, function(data, status, request) {
+						if (!+data.status) {
+							console.log('登录失效');
+							route.go('/login');
+			  		      } else {
+			  		        return data.data;
+			  		      }
+				      }).error(function(data, status, request) {
+				        console.log('请求失败, 请重试')
+				      })
+	    	},
+				// bannerUpload: function(){
+				// 	uploadPicture(this, 720, 310);
+				// }
+			},
+			ready(){
+				console.log(this.range );
+			}
 }
 </script>
